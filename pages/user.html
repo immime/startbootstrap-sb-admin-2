@@ -421,11 +421,10 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>Rendering engine</th>
-                                            <th>Browser</th>
-                                            <th>Platform(s)</th>
-                                            <th>Engine version</th>
-                                            <th>CSS grade</th>
+                                            <th>ID</th>
+                                            <th>名称</th>
+                                            <th>描述</th>
+                                            <th>头像</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -434,7 +433,6 @@
                                             <td>Internet Explorer 4.0</td>
                                             <td>Win 95+</td>
                                             <td class="center">4</td>
-                                            <td class="center">X</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -481,38 +479,17 @@
                 },
                 'processing': true,
                 'serverSide': true,
-                'ajax': {
-                    'contentType': 'application/json',
-                    'url': 'http://localhost:8080/mvc-server/role/list',
-                    'type': 'POST'
-                }
+                'deferRender': true,
+                'ajax': 'http://localhost:8080/mvc-server/role/datatables'
         });
         
         // add btn
         $('#btnAdd').click(function() {
             var apiUrl = "http://localhost:8080/mvc-server/user/list";
             $.ajax({
-                type: 'OPTIONS',
-                url: apiUrl,
-                dataType: 'json',
-                crossDomain: true,
-                async: false,
-                contentType: 'application/json',
-                xhrFields: {
-                    // The 'xhrFields' property sets additional fields on the XMLHttpRequest.
-                    // This can be used to set the 'withCredentials' property.
-                    // Set the value to 'true' if you'd like to pass cookies to the server.
-                    // If this is enabled, your server must respond with the header
-                    // 'Access-Control-Allow-Credentials: true'.
-                    withCredentials: false
-                },
-//                data: '{"id": 1, "name": "Alice"}',
-                success: function(data, textStatus, request) {
-                    alert(JSON.stringify(data));
-                },
-                error: function(xhr) {
-                    alert('Error!  Status = ' + xhr.status + " Message = " + xhr.statusText);
-                }
+                url: apiUrl
+            }).then(function(data) {
+                console.log(this.response);
             });
         });
         
